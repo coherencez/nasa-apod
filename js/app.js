@@ -11,6 +11,7 @@
    $(function() {
    	let $carousel = $('.carousel'),
    			$loadImgButton = $('<button/>');
+   			
    	$carousel.hide();
    	// creat button, and append to DOM to be used to load picutres
     $loadImgButton
@@ -117,11 +118,11 @@
 											};
 					
 				dateArray.push(dateObj);
-				counter++;
   // call getRandomDates until counter reaches 10 (10 dates === 10 pictures)
 				if (counter === 10) {
 					return;
 				} 
+				counter++;
 				
 			getRandomDates();
     };

@@ -57,30 +57,28 @@
      				});
      				$carIndicator.append(indString);
  			  		$output.append(htmlString);
-			    });
-			    // .then(() => {
-   				// 	let $clearCarouselButton = $('button.clear');
+			    })
+			    .then(() => {
+   					let $clearCarouselButton = $('button.clear');
 					   		
-					  //  		$clearCarouselButton
-					  //  		.on('click', () => {
-					  //  		console.log("test");
-					  //  			$carousel.hide();
-					  //  			$loadImgButton.show(200);
-					  //  			$loadImgButton.on('click', () => {
-					  //  				$loadImgButton.toggle();
-					  //  			});
-					  //  		});
-			    // }) ;
+					   		$clearCarouselButton
+					   		.on('click', () => {
+					   			$carousel.hide();
+					   			$loadImgButton.show(200);
+					   			// imgArray.length = 0;
+					   			// $output.empty();
+					   			// $carIndicator.empty();
+					   		});
+			    });
      		});
-     	$loadImgButton.toggle();
 			}).appendTo($('body'));
 
-    //  $('body').on('click', (e) => {
-    // 	 if ($carousel.attr('hidden') === false) {
-    // 	 	$loadImgButton.hide();
-    // 	 }
-    // });
+    $('body').on('click', (e) => {
+    	 if ($carousel.is(':visible')) {
+    	 	$loadImgButton.hide();
+    	 }
     });
+   });
 
 // The rest of the code goes here!
 // all code below is run asynch of DOM load

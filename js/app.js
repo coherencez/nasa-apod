@@ -61,15 +61,13 @@
 			    .then(() => {
    					let $clearCarouselButton = $('button.clear');
 					   		
-					   		$clearCarouselButton
+					   	$clearCarouselButton
 					   		.on('click', () => {
 					   			$output.empty();
 					   			$carIndicator.empty();
-					   			console.log("data", imgArray);
-					   			console.log("counter", counter);
 				   			  imgArray.length = 0;
 				   				counter = 0;
-					   			// $carousel.hide();
+					   			$carousel.hide();
 					   			$loadImgButton.show(200);
 					   		});
 			    });

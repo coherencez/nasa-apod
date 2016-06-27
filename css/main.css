@@ -34,6 +34,5 @@ a:hover {
 #explanation {
 	font-weight: 900;
 	line-height: 1em;
-	-webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: black;
+	text-shadow: 5px 5px 5px rgba(0,0,0,1);
 }

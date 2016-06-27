@@ -5,52 +5,92 @@
 	x(window.jQuery, window, document);
 
   }(function($, window, document) {
+	
    // The jQuery object ($) is now locally scoped 
    // Listen for the jQuery ready event on the document
-
    $(function() {
-   	console.log("DOM is ready!");
+   	let $carousel = $('.carousel'),
+   			$loadImgButton = $('<button/>');
+   	$carousel.hide();
    	// creat button, and append to DOM to be used to load picutres
-     $('<button/>').text('Get Random Date').on('click',() => {
+    $loadImgButton
+     .text('Get Random Images')
+     .toggleClass('btn btn-primary loadButton')
+     .on('click',() => {
+     		$carousel.show(600);
      		let $dates = $(returnDatesArr()),
-     				$images = $(returnImgArray()),
      				$output = $('#imgOutput'),
-     				htmlString = '';
+     				$carIndicator = $('#carouselIndicators'),
+     				htmlString = '',
+     				indString = '';
 
      		$dates.each((i, x) => {
      			loadImageAJAX(x)
      			.then((y) => {pushData(y);})
      			.then(() => {
-     				let $data = $(returnImgArray());
-     				$data.each((i, x) => {
-     					htmlString = `<imgcard class="col-xs-6">
-														<header>
-															<h3 id="title">${x.title}</h3>
-														</header>
-														<section id="imgSection">
-															<img src="${x.url}" id="url"/>
-														</section>
-														<footer>
-															<p id="explanation">${x.explanation}</p>
-															<p id='date'>${x.date}</p>
-															<h5 id="copywright">&copy;${x.copywright}</h5>
-														</footer>
-													</imgcard>`;
+     				let $images = $(returnImgArray());
+     				$images.each((i, x) => {
+     					let copyCheck = x.copyright;
+     					if (copyCheck === undefined) {
+     						copyCheck = 'Public Domain';
+     					}
+  					// set initial carousel item and indicator to active
+							if (i === 0) {
+								htmlString = `<div class="item active" id="img${i}">`;
+								indString = `<li data-target="#img${i}" data-slide-to="${i}" class="active"></li>`;
+							} else {
+								htmlString = `<div class="item" id="img${i}">`;
+								indString = `<li data-target="#img${i}" data-slide-to="${i}"></li>`;
+							}
+							htmlString = `${htmlString}	
+															<img src="${x.url}" alt="${x.title}" id="url">
+	    												  <div class="carousel-caption">
+	    												    <h3>${x.title}</h3>
+	    												    <h5>&copy;&nbsp;${copyCheck}</h5>
+	    												    <p id="explanation">${x.explanation}</p>
+	    												    <p id="explanation">(YYYY-MM-DD)&nbsp;${x.date}</p>
+	    												    <button id="hdurl" class="btn btn-primary"><a href="${x.hdurl}" target="_blank">High-Definition</a></button>
+	    												    <button class="btn btn-important clear">Clear</button>
+	    												  </div>
+	    												</div>`;
+	    				
      				});
- 			  	$output.append(htmlString);
-     			});
+     				$carIndicator.append(indString);
+ 			  		$output.append(htmlString);
+			    });
+			    // .then(() => {
+   				// 	let $clearCarouselButton = $('button.clear');
+					   		
+					  //  		$clearCarouselButton
+					  //  		.on('click', () => {
+					  //  		console.log("test");
+					  //  			$carousel.hide();
+					  //  			$loadImgButton.show(200);
+					  //  			$loadImgButton.on('click', () => {
+					  //  				$loadImgButton.toggle();
+					  //  			});
+					  //  		});
+			    // }) ;
      		});
+     	$loadImgButton.toggle();
 			}).appendTo($('body'));
 
-   });
-  	// define private vars needed for retreiving random dates
-  	let counter = 0,
-	      dateArray = [],
-	      imgArray = [];
+    //  $('body').on('click', (e) => {
+    // 	 if ($carousel.attr('hidden') === false) {
+    // 	 	$loadImgButton.hide();
+    // 	 }
+    // });
+    });
+
+// The rest of the code goes here!
+// all code below is run asynch of DOM load
+// define private vars needed for retreiving random dates
+
+	 let counter = 0,
+       dateArray = [],
+       imgArray = [];
 
 
-   console.log("DOM may not be ready.");
-   // The rest of the code goes here!
    let getRandomDates = () => {
 			// retrieve random date between 01 Jan 1995 ~ 31 Dec 2016
 			let rndYear = Math.floor(Math.random() * (2017 - 1995)) + 1995,
@@ -88,7 +128,9 @@
     };
 
     let returnDatesArr = () => {getRandomDates(); return dateArray;};
+
     let returnImgArray = () => {return imgArray;};
+
     let loadImageAJAX = (x) => {
      			return new Promise ((resolve, reject) => {
 	     			$.ajax({
@@ -100,6 +142,7 @@
 						});
 					});
      		};
+
      let pushData = (y) => {imgArray.push(y);};
 }));
 

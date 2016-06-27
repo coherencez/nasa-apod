@@ -2,11 +2,43 @@ body {
 	color: #A0A;
 }
 
-imgcard {
-	text-align: center;
+a {
+	color: #fff;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #fff;
+	font-weight: 600;
+	text-decoration: none;
+}
+
+.loadButton {
+	position: absolute;	
+	top: 20%;
+	left: 45%;
+}
+
+.carousel {
+	width: auto;
+	height: 600px;
+	max-height: 600px;
+}
+
+.item img {	
+	width: auto;
+	height: 600px;
+	max-height: 600px;
 }
 
 #url {
 	height: 100%;
 	width: 100%;
+}
+
+#explanation {
+	font-weight: 900;
+	line-height: 1em;
+	-webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
 }

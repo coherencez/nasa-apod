@@ -63,11 +63,14 @@
 					   		
 					   		$clearCarouselButton
 					   		.on('click', () => {
-					   			$carousel.hide();
+					   			$output.empty();
+					   			$carIndicator.empty();
+					   			console.log("data", imgArray);
+					   			console.log("counter", counter);
+				   			  imgArray.length = 0;
+				   				counter = 0;
+					   			// $carousel.hide();
 					   			$loadImgButton.show(200);
-					   			// imgArray.length = 0;
-					   			// $output.empty();
-					   			// $carIndicator.empty();
 					   		});
 			    });
      		});
